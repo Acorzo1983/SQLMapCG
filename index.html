@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Web-based SQLMap command generator: build sqlmap commands with target, crawling, connection, detection, technique, enumeration and advanced options.">
+    <meta name="theme-color" content="#0a0e17">
     <title>SQLMap Command Generator</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%230a0e17'/%3E%3Ctext x='50' y='68' font-family='monospace' font-size='52' fill='%2300ff00' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script type="module" src="js/main.js"></script>
@@ -12,8 +15,8 @@
     <div class="container">
         <header class="header">
             <h1 class="title">SQLMap Command Generator</h1>
-            <button class="theme-toggle" id="theme-toggle">
-                <span class="theme-icon">🌓</span>
+            <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                <span class="theme-icon" aria-hidden="true">🌓</span>
                 <span class="theme-text">Toggle Theme</span>
             </button>
         </header>
@@ -52,8 +55,8 @@
                     </span>
                 </h2>
                 <div class="form-group">
-                    <label for="crawl-depth">Crawl Depth:</label>
-                    <input type="number" id="crawl-depth" min="1" value="1">
+                    <label for="crawl-depth">Crawl Depth (0 = off):</label>
+                    <input type="number" id="crawl-depth" min="0" max="10" value="0">
                 </div>
                 <div class="form-group">
                     <label for="crawl-exclude">Exclude Pattern:</label>
@@ -252,7 +255,7 @@
             </div>
         </div>
 
-        <button id="generate-btn" class="generate-btn">Generate Command</button>
+        <button type="button" id="generate-btn" class="generate-btn">Generate Command</button>
         
         <div class="card output-card">
             <h2>Generated Command
@@ -261,8 +264,8 @@
                     <span class="tooltiptext">The generated SQLMap command based on your selections. Click 'Copy Command' to copy to clipboard.</span>
                 </span>
             </h2>
-            <div id="output" class="output"></div>
-            <button class="copy-btn" id="copy-btn">Copy Command</button>
+            <div id="output" class="output" role="status" aria-live="polite"></div>
+            <button type="button" class="copy-btn" id="copy-btn" disabled>Copy Command</button>
         </div>
 
         <footer class="footer">

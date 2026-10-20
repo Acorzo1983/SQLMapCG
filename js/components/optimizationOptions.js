@@ -1,8 +1,12 @@
+import { isChecked, readNumber } from '../utils.js';
+
 export function addOptimizationOptions(command) {
-  if (document.getElementById('optimize').checked) command += ' -o';
-  const threads = document.getElementById('threads').value;
+  if (isChecked('optimize')) command += ' -o';
+
+  const threads = readNumber('threads', { min: 1, max: 10, fallback: 1 });
   if (threads > 1) command += ` --threads=${threads}`;
-  if (document.getElementById('keep-alive').checked) command += ' --keep-alive';
-  
+
+  if (isChecked('keep-alive')) command += ' --keep-alive';
+
   return command;
 }

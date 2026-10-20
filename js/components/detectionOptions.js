@@ -1,9 +1,11 @@
+import { readNumber } from '../utils.js';
+
 export function addDetectionOptions(command) {
-  const level = document.getElementById('level').value;
-  const risk = document.getElementById('risk').value;
-  const verbosity = document.getElementById('verbosity').value;
-  
+  const level = readNumber('level', { min: 1, max: 5, fallback: 1 });
+  const risk = readNumber('risk', { min: 1, max: 3, fallback: 1 });
+  const verbosity = readNumber('verbosity', { min: 0, max: 6, fallback: 1 });
+
   command += ` --level=${level} --risk=${risk} -v ${verbosity}`;
-  
+
   return command;
 }

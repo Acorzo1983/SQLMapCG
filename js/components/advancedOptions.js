@@ -1,13 +1,16 @@
+import { isChecked, quoteArg, readText } from '../utils.js';
+
 export function addAdvancedOptions(command) {
   const advancedOptions = ['os-shell', 'os-pwn', 'batch', 'flush-session'];
+
   advancedOptions.forEach(opt => {
-    if (document.getElementById(opt).checked) {
+    if (isChecked(opt)) {
       command += ` --${opt}`;
     }
   });
-  
-  const tamper = document.getElementById('tamper').value;
-  if (tamper) command += ` --tamper="${tamper}"`;
-  
+
+  const tamper = readText('tamper');
+  if (tamper) command += ` --tamper=${quoteArg(tamper)}`;
+
   return command;
 }

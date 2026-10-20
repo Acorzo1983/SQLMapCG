@@ -1,9 +1,11 @@
+import { isChecked, quoteArg, readText } from '../utils.js';
+
 export function addConnectionOptions(command) {
-  if (document.getElementById('random-agent').checked) command += ' --random-agent';
-  if (document.getElementById('tor').checked) command += ' --tor';
-  
-  const proxy = document.getElementById('proxy').value;
-  if (proxy) command += ` --proxy="${proxy}"`;
-  
+  if (isChecked('random-agent')) command += ' --random-agent';
+  if (isChecked('tor')) command += ' --tor';
+
+  const proxy = readText('proxy');
+  if (proxy) command += ` --proxy=${quoteArg(proxy)}`;
+
   return command;
 }

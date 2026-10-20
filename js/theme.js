@@ -1,16 +1,38 @@
+const THEME_KEY = 'theme';
+
+function applyTheme(theme) {
+  const root = document.documentElement;
+  root.classList.remove('dark', 'light');
+  root.classList.add(theme);
+  root.dataset.theme = theme;
+}
+
 export function toggleTheme() {
-  const html = document.documentElement;
-  const isDark = html.classList.contains('dark');
-  html.classList.toggle('dark', !isDark);
-  html.classList.toggle('light', isDark);
-  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+  const isDark = document.documentElement.classList.contains('dark');
+  const theme = isDark ? 'light' : 'dark';
+
+  applyTheme(theme);
+
+  try {
+    localStorage.setItem(THEME_KEY, theme);
+  } catch {
+    // Storage can be unavailable (private mode); the theme still applies.
+  }
 }
 
 // Initialize theme from localStorage
 export function initTheme() {
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme) {
-    document.documentElement.classList.remove('dark', 'light');
-    document.documentElement.classList.add(savedTheme);
+  let savedTheme = null;
+
+  try {
+    savedTheme = localStorage.getItem(THEME_KEY);
+  } catch {
+    // Ignore storage access errors and keep the default theme.
+  }
+
+  if (savedTheme === 'dark' || savedTheme === 'light') {
+    applyTheme(savedTheme);
+  } else {
+    applyTheme(document.documentElement.classList.contains('light') ? 'light' : 'dark');
   }
 }

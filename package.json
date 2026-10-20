@@ -2,11 +2,32 @@
   "name": "sqlmap-generator",
   "private": true,
   "version": "1.1.0",
+  "description": "Web-based SQLMap command generator: build sqlmap commands from a browser form.",
   "type": "module",
+  "homepage": "https://acorzo1983.github.io/SQLMapCG/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Acorzo1983/SQLMapCG.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Acorzo1983/SQLMapCG/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "sqlmap",
+    "sql-injection",
+    "pentesting",
+    "security",
+    "command-generator"
+  ],
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --test tests/*.test.js"
   },
   "devDependencies": {
     "vite": "^7.3.7"
