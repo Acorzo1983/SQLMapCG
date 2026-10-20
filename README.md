@@ -17,8 +17,9 @@ SQLMap Command Generator is a web-based application designed to assist penetrati
 ## Requirements
 
 - A Unix-based operating system (Linux/macOS).
-- Python 3.x.
-- Firefox (for opening the SQLMap interface).
+- Python 3.x (used to serve the static site).
+- A browser (Firefox, or any browser via `xdg-open`/`open`).
+- *Optional, for development only:* Node.js `^20.19.0 || >=22.12.0` and npm.
 
 
 ## Web Usage Live
@@ -60,7 +61,29 @@ git clone https://github.com/Acorzo1983/SQLMapCG.git && cd SQLMapCG && chmod +x 
    ./run.sh
    ```
 
-   This will start an HTTP server on an available port (either 8082-8085 or a custom port you specify) and open the web application in Firefox automatically.
+   This will start an HTTP server on an available port (either 8082-8085 or a custom port you specify) and open the web application in your browser.
+
+## Development
+
+The site is plain HTML/CSS/JavaScript, so `run.sh` is enough to use it. Vite is
+only needed to develop and build it:
+
+```bash
+npm ci          # install the toolchain
+npm test        # run the unit tests (node:test, no extra dependencies)
+npm run dev     # dev server on http://localhost:3000
+npm run build   # production build in dist/
+npm run preview # serve the production build
+```
+
+## Security
+
+- Dependencies are monitored by Dependabot (see `.github/dependabot.yml`) and
+  audited in CI with `npm audit`.
+- The generated command is quoted for POSIX shells: backslashes, double quotes,
+  `$` and backticks in your input are escaped so a pasted URL cannot break out
+  of its argument or run command substitution.
+- Please report vulnerabilities privately — see [SECURITY.md](SECURITY.md).
 
 ## Available Options
 
@@ -73,7 +96,7 @@ git clone https://github.com/Acorzo1983/SQLMapCG.git && cd SQLMapCG && chmod +x 
 
 - **Port Availability**: The script will check if ports 8082-8085 are available. If none of them are free, it will prompt you to choose another port.
 - **Permissions**: Ensure you have the required permissions to run the script and make the `run.sh` file executable.
-- **Dependencies**: The script assumes that `python3` and `firefox` are installed on your system.
+- **Dependencies**: The script requires `python3`; if `lsof` is missing it falls back to a Python socket check, and it opens Firefox, `xdg-open` or `open`, whichever is available.
 
 ## License
 
